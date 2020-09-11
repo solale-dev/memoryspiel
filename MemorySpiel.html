@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory-Spiel</title>
+  <style>
+    #Memory_Bord {
+      background-color: aqua;
+      border: blue 2px dashed;
+      margin: 1em 5em;
+      display: flex;
+      flex-wrap: wrap;
+    }
+    #Memory_Bord img {
+      display: block;
+      width: 150px; height: 150px;
+
+    }
+  </style>
+</head>
+<body>
+  <h1>Memory Spiel</h1>
+  <p>Auswählen wie viele verschiedene Bilder wir für das Memory Spiel verwenden wollen.<br>
+    Jede Karte enthält ein Deckblatt und ein Bild. Es sind doppelt so viele Karten wie verschiedene Bilder.
+    Karten werden verdeckt gemischt auf einen Spieltisch aufgelegt.<br>
+    Anklicken/auswählen einer Karte zeigt das Kartenbild an. Weiteres Anklicken/auswählen einer Karte zeigt auch das
+    Kartebild an.<br>
+    Wenn das zweite ausgewählte Kartebild nicht mit dem ersten Kartenbild identisch ist, drehen wir die Karten nach 3
+    Sekunden wieder um, oder das erneute Anklicken einer dritten Karte dreht die letzten beiden verschiedenen Karten
+    wieder um.<br>
+    Sonst bei identischen Kartenbildern werden die Karten vom Spieltisch entfernt bzw. durch eine Extrakarte ersetzt.
+    Das Spiel ist beendet wenn alle Karten vom Spieltisch entfernt wurden bzw. wenn der Spieler das Spiel abbricht/neu
+    beginnt oder das Webseite schließt.
+  </p>
+
+  <script> 
+    function umdrehen(that, bild) {
+      if (that.src.indexOf(deckblatt) > -1) {
+        that.src = bild;
+      }
+      else {
+        that.src = deckblatt;
+      }
+    }
+    var verschiedenbilder=3;
+    var bilder=[];
+    var deckblatt = "bilder/36.gif";
+
+  
+
+    bilder[0] = "bilder/10.gif";
+    bilder[1] = "bilder/15.gif";
+    bilder[2] = "bilder/20.gif";
+
+  </script>
+  <div id="Memory_Bord">
+    <img src="bilder/11.GIF" onclick="umdrehen(this, 'bilder/11.GIF');"/>
+    <img src="bilder/11.GIF" onclick="umdrehen(this, 'bilder/11.GIF');"/>
+    <img src="bilder/12.GIF" onclick="umdrehen(this, 'bilder/12.GIF');"/>
+    <img src="bilder/12.GIF" onclick="umdrehen(this, 'bilder/12.GIF');"/>
+    <img src="bilder/13.GIF" onclick="umdrehen(this, 'bilder/13.GIF');"/>
+    <img src="bilder/13.GIF" onclick="umdrehen(this, 'bilder/13.GIF');"/>
+    <img src="bilder/14.GIF" onclick="umdrehen(this, 'bilder/14.GIF');"/>
+    <img src="bilder/14.GIF" onclick="umdrehen(this, 'bilder/14.GIF');"/>
+    <img src="bilder/15.GIF" onclick="umdrehen(this, 'bilder/15.GIF');"/>
+    <img src="bilder/15.GIF" onclick="umdrehen(this, 'bilder/15.GIF');"/>
+    <img src="bilder/16.GIF" onclick="umdrehen(this, 'bilder/16.GIF');"/>
+    <img src="bilder/16.GIF" onclick="umdrehen(this, 'bilder/16.GIF');"/>
+  </div>
+   <div id="Memory_Bord">
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/11.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/11.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/12.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/12.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/13.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/13.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/14.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/14.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/15.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/15.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/16.GIF');"/>
+     <img src="bilder/36.gif" onclick="umdrehen(this,'bilder/16.GIF');"/>
+
+   </div>
+</body>
+
+
+</html>
