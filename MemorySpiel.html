@@ -6,9 +6,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memory-Spiel</title>
   <style>
+    #memory {
+      margin: 1em 9em;
+    }
     #MemoryBord {
       background-color: white;
-      margin: 1em 9em;
       display: flex;
       flex-wrap: wrap;
     }
@@ -19,7 +21,6 @@
       height: 100px;
 
     }
-
   </style>
 </head>
 
@@ -44,12 +45,12 @@
     var spielfeld = document.getElementById("MemoryBord");
     var verschiedenbilder = 20;
     var bilder = [];
-    for (let i = 0; i < verschiedenbilder;i++) {
+    for (let i = 0; i < verschiedenbilder; i++) {
       let bild;
-       //do {
-        let rnd = Math.floor(Math.random()*102 + 1);
+      do {
+        let rnd = Math.floor(Math.random() * 102 + 1);
         bild = "bilder/" + rnd + ".gif";
-        // while(bilder.indexOf(bilder) == -1);
+      } while (bilder.indexOf(bild) > -1);
       bilder[i] = bild;
     }
 
@@ -72,7 +73,7 @@
       }
     }
     function steuerung(that, bildnr) {
-      let memoryid=document.getElementById("MemoryBord");
+      let memoryid = document.getElementById("MemoryBord");
       if (bildnr === aufgedecktesBild1 || bildnr === aufgedecktesBild2) return; //nochmal auf Bild geklickt
 
       if (aufgedecktesBild1 === -1) { // erstes Bild
@@ -87,32 +88,35 @@
       }
       if (bilder[aufgedecktesBild1] === bilder[aufgedecktesBild2]) {
         //entferne Bilder
-        memoryid.getElementsByTagName("img")[aufgedecktesBild1].src="bilder/Muster.gif";
-        memoryid.getElementsByTagName("img")[aufgedecktesBild2].src="bilder/Muster.gif";
-        memoryid.getElementsByTagName("img")[aufgedecktesBild1].onclick="";
-        memoryid.getElementsByTagName("img")[aufgedecktesBild2].onclick="";
+        memoryid.getElementsByTagName("img")[aufgedecktesBild1].src = "bilder/Muster.gif";
+        memoryid.getElementsByTagName("img")[aufgedecktesBild2].src = "bilder/Muster.gif";
+        memoryid.getElementsByTagName("img")[aufgedecktesBild1].onclick = "";
+        memoryid.getElementsByTagName("img")[aufgedecktesBild2].onclick = "";
       }
       else {
-        memoryid.getElementsByTagName("img")[aufgedecktesBild1].src=deckblatt;
-        memoryid.getElementsByTagName("img")[aufgedecktesBild2].src=deckblatt;
+        memoryid.getElementsByTagName("img")[aufgedecktesBild1].src = deckblatt;
+        memoryid.getElementsByTagName("img")[aufgedecktesBild2].src = deckblatt;
       }
       aufgedecktesBild2 = -1;
       aufgedecktesBild1 = bildnr;
       that.src = bilder[bildnr];
-          }
-          
+    }
+
 
     mischen(bilder);
 
 
   </script>
-  <div id="MemoryBord">
-    <script>
-      for(let i = 0; i < verschiedenbilder; i++) {
-        document.writeln('<img src="bilder/DeckBlatt.gif" onclick="steuerung(this, ' + i + ')" />')
-      }
-    </script>
-  </div>
+  <section id="memory">
+    Anzahl verschiedener Bilder: <input id="verschiedenbilder" type="number" value="4"><button>Neues Spiel</button>
+    <div id="MemoryBord">
+      <script>
+        for (let i = 0; i < verschiedenbilder; i++) {
+          document.writeln('<img src="bilder/DeckBlatt.gif" onclick="steuerung(this, ' + i + ')" />')
+        }
+      </script>
+    </div>
+  </section>
 </body>
 
 
