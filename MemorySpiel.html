@@ -6,7 +6,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memory-Spiel</title>
   <style>
-    #Memory_Bord {
+    #MemoryBord {
       background-color: aqua;
       border: blue 2px dashed;
       margin: 1em 5em;
@@ -14,24 +14,25 @@
       flex-wrap: wrap;
     }
 
-    #Memory_Bord img {
+    #MemoryBord img {
       display: block;
       width: 150px;
       height: 150px;
 
     }
+
+    img.flipped {}
+
+    img.reverse {
+      background-image: "bilder/36.gif";
+    }
+
+    img.correct {}
   </style>
 </head>
 
 <body>
 
-  <div class="verpackung">
-    <p><span id="sekunden">00</span>:<span id="tens">00</span></p>
-    <p id="text"></p>
-    <div id="container">
-
-    </div>
-  </div>
   <h1>Memory Spiel</h1>
   <p>Auswählen wie viele verschiedene <b>Bilder</b> wir für das Memory Spiel verwenden wollen.<br>
     Jede <b>Karte</b> enthält ein Deckblatt und ein Bild. Es sind doppelt so viele Karten wie verschiedene Bilder.
@@ -47,100 +48,72 @@
   </p>
 
   <script>
-    var myCards =
-      document.getElementById("container");
-    var resultsArray = [];
-    var counter = 0;
-    var text = document.getElementById("text");
-    var sekunden = 00;
-    var tens = 00;
-    var appendTens = document.getElementById("tens");
-    var appendSekunden = document.getElementById("sekunden");
-    var Interval;
+
+    var spielfeld = document.getElementById("MemoryBord");
     var verschiedenbilder = 3;
-    var bilder = [
-      bilder[0] = "bilder/10.gif";
+    var bilder = [];
+    bilder[0] = "bilder/10.gif";
     bilder[1] = "bilder/15.gif";
     bilder[2] = "bilder/20.gif";
-];
     var deckblatt = "bilder/36.gif";
-    var clone = bilder.slice(o);
+    var alternativbild = "bilder/28.gif";
+    var clone = bilder.slice(0);
     var bilder = bilder.concat(clone);
-    function shuffle(o) {
-      for (var j, x, i = o.length; i; j =
-        Math.floor(Math.random() * i), x = o[--i], o[i]
-        = o[j], o[j] = x);
-      return o;
-    }
-    shuffle(bilder);
-    for (var i = 0; i < bilder.length; i++) {
-      bild = document.createElement("div");
-      bild.dataset.item = bild[i];
-      bild.dateset.view = "bild";
-      myBild.appenChild(bild);
-      bild.onclick = function () {
-        if (this.className != 'flipped' &&
-          this.className != 'correct') {
-          this.className = 'flipped';
-          var result = this.dataset.item;
-          resultsArray.push(result);
-          clearInterval(Interval);
-          Interval = setInterval(starttimer, 3);
+    var aufgedecktesBild1 = -1;
+    var aufgedecktesBild2 = -1;
 
-        }
-        if (resultsArray[0] === resultsArray[1]) {
-          check("correct");
-          counter++;
-          gewinn();
-          resultsArray = [];
-        } else {
-          check("umkehren");
-          resultsarray = [];
-        }
+    function mischen(arr) {
+      let rnd1, rnd2, xhelp;
+      const len = arr.length;
+      for (let i = 0; i < 100; i++) {
+        rnd1 = Math.floor(Math.random() * len);
+        rnd2 = Math.floor(Math.random() * len);
+        xhelp = arr[rnd1];
+        arr[rnd1] = arr[rnd2];
+        arr[rnd2] = xhelp;
       }
     }
-  };
+    function steuerung(that, bildnr) {
+      let memoryid=document.getElementById("MemoryBord");
+      if (bildnr === aufgedecktesBild1 || bildnr === aufgedecktesBild2) return; //nochmal auf Bild geklickt
 
-    var check = function (className) {
-
-      var x =
-        document.getElementClassName("flipped");
-      setTimeout(function () {
-        for (var i = (x.length - 1); i >= 0; i--) {
-          x[i].className = className;
-        }
+      if (aufgedecktesBild1 === -1) { // erstes Bild
+        aufgedecktesBild1 = bildnr;
+        that.src = bilder[bildnr];
+        return;
       }
-    }
-    var gewinn = function () {
-
-    }
-    function umdrehen(that, bild) {
-      if (that.src.indexOf(deckblatt) > -1) {
-        that.src = bild;
+      if (aufgedecktesBild2 === -1) { //zweites Bild
+        aufgedecktesBild2 = bildnr;
+        that.src = bilder[bildnr];
+        return;
+      }
+      if (bilder[aufgedecktesBild1] === bilder[aufgedecktesBild2]) {
+        //entferne Bilder
+        memoryid.getElementsByTagName("img")[aufgedecktesBild1].src="bilder/28.gif";
+        memoryid.getElementsByTagName("img")[aufgedecktesBild2].src="bilder/28.gif";
+        
       }
       else {
-        that.src = deckblatt;
-
+        memoryid.getElementsByTagName("img")[aufgedecktesBild1].src=deckblatt;
+        memoryid.getElementsByTagName("img")[aufgedecktesBild2].src=deckblatt;
       }
-    }
+      aufgedecktesBild2 = -1;
+      aufgedecktesBild1 = bildnr;
+      that.src = bilder[bildnr];
+          }
+          
+
+    mischen(bilder);
+
 
   </script>
-  <div id="Memory_Bord">
-    <img src="bilder/11.GIF" onclick="umdrehen(this, 'bilder/11.GIF');" />
-    <img src="bilder/11.GIF" onclick="umdrehen(this, 'bilder/11.GIF');" />
-    <img src="bilder/12.GIF" onclick="umdrehen(this, 'bilder/12.GIF');" />
-    <img src="bilder/12.GIF" onclick="umdrehen(this, 'bilder/12.GIF');" />
-    <img src="bilder/13.GIF" onclick="umdrehen(this, 'bilder/13.GIF');" />
-    <img src="bilder/13.GIF" onclick="umdrehen(this, 'bilder/13.GIF');" />
-    <img src="bilder/14.GIF" onclick="umdrehen(this, 'bilder/14.GIF');" />
-    <img src="bilder/14.GIF" onclick="umdrehen(this, 'bilder/14.GIF');" />
-    <img src="bilder/15.GIF" onclick="umdrehen(this, 'bilder/15.GIF');" />
-    <img src="bilder/15.GIF" onclick="umdrehen(this, 'bilder/15.GIF');" />
-    <img src="bilder/16.GIF" onclick="umdrehen(this, 'bilder/16.GIF');" />
-    <img src="bilder/16.GIF" onclick="umdrehen(this, 'bilder/16.GIF');" />
-  </div>
-
-
+  <div id="MemoryBord">
+    <img src="bilder/36.gif" onclick="steuerung(this, 0)" />
+    <img src="bilder/36.gif" onclick="steuerung(this, 1)" />
+    <img src="bilder/36.gif" onclick="steuerung(this, 2)" />
+    <img src="bilder/36.gif" onclick="steuerung(this, 3)" />
+    <img src="bilder/36.gif" onclick="steuerung(this, 4)" />
+    <img src="bilder/36.gif" onclick="steuerung(this, 5)" />
   </div>
 </body>
 
