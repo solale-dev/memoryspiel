@@ -7,27 +7,19 @@
   <title>Memory-Spiel</title>
   <style>
     #MemoryBord {
-      background-color: aqua;
-      border: blue 2px dashed;
-      margin: 1em 5em;
+      background-color: white;
+      margin: 1em 9em;
       display: flex;
       flex-wrap: wrap;
     }
 
     #MemoryBord img {
       display: block;
-      width: 150px;
-      height: 150px;
+      width: 100px;
+      height: 100px;
 
     }
 
-    img.flipped {}
-
-    img.reverse {
-      background-image: "bilder/36.gif";
-    }
-
-    img.correct {}
   </style>
 </head>
 
@@ -50,13 +42,19 @@
   <script>
 
     var spielfeld = document.getElementById("MemoryBord");
-    var verschiedenbilder = 3;
+    var verschiedenbilder = 20;
     var bilder = [];
-    bilder[0] = "bilder/10.gif";
-    bilder[1] = "bilder/15.gif";
-    bilder[2] = "bilder/20.gif";
-    var deckblatt = "bilder/36.gif";
-    var alternativbild = "bilder/28.gif";
+    for (let i = 0; i < verschiedenbilder;i++) {
+      let bild;
+       //do {
+        let rnd = Math.floor(Math.random()*102 + 1);
+        bild = "bilder/" + rnd + ".gif";
+        // while(bilder.indexOf(bilder) == -1);
+      bilder[i] = bild;
+    }
+
+    var deckblatt = "bilder/DeckBlatt.gif";
+    var alternativbild = "bilder/Muster.gif";
     var clone = bilder.slice(0);
     var bilder = bilder.concat(clone);
     var aufgedecktesBild1 = -1;
@@ -89,9 +87,10 @@
       }
       if (bilder[aufgedecktesBild1] === bilder[aufgedecktesBild2]) {
         //entferne Bilder
-        memoryid.getElementsByTagName("img")[aufgedecktesBild1].src="bilder/28.gif";
-        memoryid.getElementsByTagName("img")[aufgedecktesBild2].src="bilder/28.gif";
-        
+        memoryid.getElementsByTagName("img")[aufgedecktesBild1].src="bilder/Muster.gif";
+        memoryid.getElementsByTagName("img")[aufgedecktesBild2].src="bilder/Muster.gif";
+        memoryid.getElementsByTagName("img")[aufgedecktesBild1].onclick="";
+        memoryid.getElementsByTagName("img")[aufgedecktesBild2].onclick="";
       }
       else {
         memoryid.getElementsByTagName("img")[aufgedecktesBild1].src=deckblatt;
@@ -108,12 +107,11 @@
 
   </script>
   <div id="MemoryBord">
-    <img src="bilder/36.gif" onclick="steuerung(this, 0)" />
-    <img src="bilder/36.gif" onclick="steuerung(this, 1)" />
-    <img src="bilder/36.gif" onclick="steuerung(this, 2)" />
-    <img src="bilder/36.gif" onclick="steuerung(this, 3)" />
-    <img src="bilder/36.gif" onclick="steuerung(this, 4)" />
-    <img src="bilder/36.gif" onclick="steuerung(this, 5)" />
+    <script>
+      for(let i = 0; i < verschiedenbilder; i++) {
+        document.writeln('<img src="bilder/DeckBlatt.gif" onclick="steuerung(this, ' + i + ')" />')
+      }
+    </script>
   </div>
 </body>
 
