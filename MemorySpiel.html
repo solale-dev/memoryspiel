@@ -24,9 +24,9 @@
   </style>
 </head>
 
-<body>
+<body onload="aufbauSpielfeld(verschiedenbilder*2)">
 
-  <h1>Memory Spiel</h1>
+<h1>Memory Spiel</h1>
   <p>Auswählen wie viele verschiedene <b>Bilder</b> wir für das Memory Spiel verwenden wollen.<br>
     Jede <b>Karte</b> enthält ein Deckblatt und ein Bild. Es sind doppelt so viele Karten wie verschiedene Bilder.
     Karten werden verdeckt gemischt auf einen Spieltisch aufgelegt.<br>
@@ -41,6 +41,23 @@
   </p>
 
   <script>
+
+    function mOver(MemoryBord) {
+     document.getElementById(MemoryBord).innerHTML = "MemoryBord"
+    }
+    function mOut(MemoryBord) {
+      document.getElementById(MemoryBord).innerHTML = "bilder/DeckBlatt.gif" 
+    }
+    function mFlip(bildindex, rückseite) {
+      memoryspiel=document.getElementById("MemoryBord");
+      bild = memoryspiel.getElementsByTagName("img")[bildindex];
+      if (bild.src.indexOf(rückseite) > - 1) {
+        bild.src = bilder[bildindex];
+      }
+      else {
+        bild.src = rückseite;
+      }
+    }
 
     var spielfeld = document.getElementById("MemoryBord");
     var verschiedenbilder = 10;
@@ -107,6 +124,8 @@
         img = document.createElement("img");
         img.src = deckblatt;
         img.onclick=function(){steuerung(this,index)};
+        img.onmouseover = function(){mFlip(index, deckblatt)};
+        img.onmouseout = function(){mFlip(index, deckblatt)};
         memory.appendChild(img)
       }
 
@@ -118,9 +137,9 @@
     Anzahl verschiedener Bilder: <input id="verschiedenbilder" type="number" value="4"><button>Neues Spiel</button>
     <div id="MemoryBord"></div>
   </section>
+</div>
 </body>
 
 <script>
-   aufbauSpielfeld(verschiedenbilder*2);
 </script>
 </html>
