@@ -43,7 +43,7 @@
   <script>
 
     var spielfeld = document.getElementById("MemoryBord");
-    var verschiedenbilder = 20;
+    var verschiedenbilder = 10;
     var bilder = [];
     for (let i = 0; i < verschiedenbilder; i++) {
       let bild;
@@ -101,23 +101,26 @@
       aufgedecktesBild1 = bildnr;
       that.src = bilder[bildnr];
     }
+    function aufbauSpielfeld(anzBilder) {
+      memory=document.getElementById("MemoryBord");
+      for (let index = 0; index < anzBilder; index++) {
+        img = document.createElement("img");
+        img.src = deckblatt;
+        img.onclick=function(){steuerung(this,index)};
+        memory.appendChild(img)
+      }
 
-
+    }
     mischen(bilder);
-
-
+ 
   </script>
   <section id="memory">
     Anzahl verschiedener Bilder: <input id="verschiedenbilder" type="number" value="4"><button>Neues Spiel</button>
-    <div id="MemoryBord">
-      <script>
-        for (let i = 0; i < verschiedenbilder; i++) {
-          document.writeln('<img src="bilder/DeckBlatt.gif" onclick="steuerung(this, ' + i + ')" />')
-        }
-      </script>
-    </div>
+    <div id="MemoryBord"></div>
   </section>
 </body>
 
-
+<script>
+   aufbauSpielfeld(verschiedenbilder*2);
+</script>
 </html>
