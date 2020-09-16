@@ -9,6 +9,7 @@
     #memory {
       margin: 1em 9em;
     }
+
     #MemoryBord {
       background-color: white;
       display: flex;
@@ -26,7 +27,7 @@
 
 <body onload="aufbauSpielfeld(verschiedenbilder*2)">
 
-<h1>Memory Spiel</h1>
+  <h1>Memory Spiel</h1>
   <p>Auswählen wie viele verschiedene <b>Bilder</b> wir für das Memory Spiel verwenden wollen.<br>
     Jede <b>Karte</b> enthält ein Deckblatt und ein Bild. Es sind doppelt so viele Karten wie verschiedene Bilder.
     Karten werden verdeckt gemischt auf einen Spieltisch aufgelegt.<br>
@@ -43,13 +44,13 @@
   <script>
 
     function mOver(MemoryBord) {
-     document.getElementById(MemoryBord).innerHTML = "MemoryBord"
+      document.getElementById(MemoryBord).innerHTML = "MemoryBord"
     }
     function mOut(MemoryBord) {
-      document.getElementById(MemoryBord).innerHTML = "bilder/DeckBlatt.gif" 
+      document.getElementById(MemoryBord).innerHTML = "bilder/DeckBlatt.gif"
     }
     function mFlip(bildindex, rückseite) {
-      memoryspiel=document.getElementById("MemoryBord");
+      memoryspiel = document.getElementById("MemoryBord");
       bild = memoryspiel.getElementsByTagName("img")[bildindex];
       if (bild.src.indexOf(rückseite) > - 1) {
         bild.src = bilder[bildindex];
@@ -119,27 +120,40 @@
       that.src = bilder[bildnr];
     }
     function aufbauSpielfeld(anzBilder) {
-      memory=document.getElementById("MemoryBord");
+      memory = document.getElementById("MemoryBord");
       for (let index = 0; index < anzBilder; index++) {
         img = document.createElement("img");
         img.src = deckblatt;
-        img.onclick=function(){steuerung(this,index)};
-        img.onmouseover = function(){mFlip(index, deckblatt)};
-        img.onmouseout = function(){mFlip(index, deckblatt)};
+        img.onclick = function () { steuerung(this, index) };
+        img.onmouseover = function () { mFlip(index, deckblatt) };
+        img.onmouseout = function () { mFlip(index, deckblatt) };
         memory.appendChild(img)
+      /*  x.addEventListener("mouseover", myFunction);
+        x.addEventListener("mouseout", mySecondFunction);
+        x.addEventListener("click", myThirdFunction);
+        function myFunction() {
+          img = document.createElement("img").index = "bild.src = bilder[bildindex]";
+        }
+        function mySecondFunction() {
+          img = document.createElement("img").index = "bild.src = rückseite";
+        }
+        function myThirdFunction() {
+          img = document.createElement("img").index = "bild.src = bilder[bildindex]";
+        } */
       }
 
     }
     mischen(bilder);
- 
+
   </script>
   <section id="memory">
     Anzahl verschiedener Bilder: <input id="verschiedenbilder" type="number" value="4"><button>Neues Spiel</button>
     <div id="MemoryBord"></div>
   </section>
-</div>
+  </div>
 </body>
 
 <script>
 </script>
+
 </html>
