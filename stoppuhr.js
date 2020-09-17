@@ -1,5 +1,6 @@
 let secondCount = 0;
 let stopWatch;
+
 const displayPara = document.querySelector('.clock');
 function displayCount() {
   let hours = Math.floor(secondCount / 3600);
@@ -11,11 +12,16 @@ function displayCount() {
   displayPara.textContent = displayHours + ':' + displayMinutes + ':' + displaySecounds;
   secondCount++;
 }
-const startBtn = document.querySelector('.start');
+const startBtn= document.querySelector('.start');
 const stopBtn = document.querySelector('.stop');
 const resetBtn = document.querySelector('.reset');
 startBtn.addEventListener('click', () => {
   stopWatch = setInterval(displayCount, 1000);
+  resetWatch = setInterval(displayCount, 1000);
+  function myFonction() {
+    clearInterval(stopWatch);
+    startBtn.disabled = false
+  }
   //startBtn.disabled = true
 });
 /*
@@ -23,6 +29,7 @@ stopBtn.addEventListener('click', () => {
   clearInterval(stopWatch);
   startBtn.disabled = false
 });
+
 resetBtn.addEventListener('click', () => {
   secondCount = 0;
   displayCount();
