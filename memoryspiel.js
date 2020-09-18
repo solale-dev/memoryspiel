@@ -29,7 +29,7 @@ function initMemory() {
   document.getElementById("AnzahlVersuche").innerText = 0;
   if (verschiedenbilder < 2 || verschiedenbilder > 102) {
     alert("Wert nicht im Bereich 2 bis 102");
-    verschiedenbilder = 10;
+    verschiedenbilder = 18;
   }
   bilder = [];
   for (let i = 0; i < verschiedenbilder; i++) {
@@ -79,7 +79,7 @@ function umdrehen() {
   }
 }
 function start3SekTimer() {
-  sektimer = setTimeout(umdrehen, anzahlsekunden*1000);
+  sektimer = setTimeout(umdrehen, anzahlsekunden * 1000);
 }
 function stop3SekTimer() {
   clearTimeout(sektimer);

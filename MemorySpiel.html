@@ -6,9 +6,24 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Memory-Spiel</title>
   <style>
+    h1 {
+      text-shadow: 2px 2px 5px lightblue;
+      text-align: center;
+    }
+
     p {
+      color: darkblue;
       font-family: sans-serif;
-      
+
+
+    }
+
+    button {
+      color: black;
+      background-color: orange;
+    }
+    input {
+      background-color:lightblue;
     }
 
     #memory {
@@ -33,21 +48,20 @@
 <body>
 
   <h1>Memory Spiel</h1>
-  <p>Auswählen wie viele verschiedene <b>Bilder</b> wir für das Memory Spiel verwenden wollen.<br>
+  <p>Auswählen wie viele verschiedene <b>Bilder</b> wir für das Memory Spiel verwenden wollen.<br><br>
     Jede <b>Karte</b> enthält ein Deckblatt und ein Bild. Es sind doppelt so viele Karten wie verschiedene Bilder.
-    Karten werden verdeckt gemischt auf einen Spieltisch aufgelegt.<br>
+    Karten werden verdeckt gemischt auf einen Spieltisch aufgelegt.<br><br>
     Anklicken/auswählen einer Karte zeigt das Kartenbild an. Weiteres Anklicken/auswählen einer Karte zeigt auch das
     Kartebild an.<br>
     Wenn das zweite ausgewählte Kartebild nicht mit dem ersten Kartenbild identisch ist, drehen wir die Karten nach 3
     Sekunden wieder um, oder das erneute Anklicken einer dritten Karte dreht die letzten beiden verschiedenen Karten
-    wieder um.<br>
+    wieder um.<br><br>
     Sonst bei identischen Kartenbildern werden die Karten vom Spieltisch entfernt bzw. durch eine Extrakarte ersetzt.
     Das Spiel ist beendet wenn alle Karten vom Spieltisch entfernt wurden bzw. wenn der Spieler das Spiel abbricht/neu
-    beginnt oder das Webseite schließt.
+    beginnt oder das Webseite schließ.<br><br><br>
   </p>
-
   <section id="memory">
-    Anzahl verschiedener Bilder: <input id="verschiedenbilder" type="number" min="2" max="102" value="10">
+    Anzahl verschiedener Bilder: <input id="verschiedenbilder" type="number" min="2" max="102" value="18">
     <button class="start stop">Neues Spiel</button>
     Anzahl Versuche: <b id="AnzahlVersuche">0</b> / <b class="clock"></b>
     <div id="MemoryBord"></div>
@@ -58,8 +72,8 @@
     <button class="stop">Stop</button>
     <button class="reset">Neue starten</button></p>
     -->
-    <script src="stoppuhr.js"></script>
-    <script src="memoryspiel.js"></script>
+  <script src="stoppuhr.js"></script>
+  <script src="memoryspiel.js"></script>
 </body>
 
 </html>
