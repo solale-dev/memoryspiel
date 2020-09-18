@@ -8,6 +8,7 @@
   <style>
     p {
       font-family: sans-serif;
+      
     }
 
     #memory {
@@ -44,11 +45,11 @@
     Das Spiel ist beendet wenn alle Karten vom Spieltisch entfernt wurden bzw. wenn der Spieler das Spiel abbricht/neu
     beginnt oder das Webseite schließt.
   </p>
-  <p class="clock"></p>
 
   <section id="memory">
     Anzahl verschiedener Bilder: <input id="verschiedenbilder" type="number" min="2" max="102" value="10">
-    <button class="start">Neues Spiel</button>
+    <button class="start stop">Neues Spiel</button>
+    Anzahl Versuche: <b id="AnzahlVersuche">0</b> / <b class="clock"></b>
     <div id="MemoryBord"></div>
   </section>
   </div>
