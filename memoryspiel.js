@@ -130,12 +130,15 @@ function aufbauSpielfeld(anzBilder) {
 
 }
 startBtn.addEventListener('click', () => {
+  zeitOffset=0;starteZeit(document.getElementById("clock"),2);
+  stoppTimer();
   resetTimer();
   initMemory();
   mischen(bilder);
   aufbauSpielfeld(verschiedenbilder * 2);
 });
-resetTimer();
+starteZeit(document.getElementById("clock"),2);
+stopWatch = setInterval(displayCount, 1000);
 initMemory();
 mischen(bilder);
 aufbauSpielfeld(verschiedenbilder * 2);
