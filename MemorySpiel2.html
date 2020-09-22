@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Memory-Spiel</title>
+  <style>
+    h1 {
+      text-shadow: 2px 2px 5px lightblue;
+      text-align: center;
+    }
+
+    p {
+      color: darkblue;
+      font-family: sans-serif;
+
+
+    }
+
+    button {
+      color: black;
+      background-color: orange;
+    }
+
+    input {
+      background-color: lightblue;
+    }
+
+    #memory {
+      margin: 6em 11em;
+    }
+
+    #MemoryBord {
+      background-color: white;
+      display: flex;
+      flex-wrap: wrap;
+    }
+
+    #MemoryBord img {
+      display: block;
+      width: 100px;
+      height: 100px;
+
+    }
+  </style>
+</head>
+
+<body>
+
+  <h1>Memory Spiel2</h1>
+
+  <section id="memory">
+    Anzahl verschiedener Bilder: <input id="verschiedenbilder" type="number" min="2" max="102" value="5">
+    <button class="start stop">Neues Spiel</button>
+    Anzahl Versuche: <b id="AnzahlVersuche">0</b> / <b class="clock"></b><input id="clock">
+    <div id="MemoryBord">
+      <img id="imgid" src="" />
+    </div>
+  </section>
+  </div>
+  <script>
+
+    /*startBtn.addEventListener('click', () => {
+      mischen(bilder);
+      aufbauSpielfeld(verschiedenbilder * 2);
+    });*/
+    class Karte {
+      constructor(deckblatt, bild) {
+        this.bildseite = bild;
+        this.rueckseite = deckblatt;
+        this.istBildOben = false;
+        this.htmlimg = null;
+      }
+      zeigeBild() {
+        this.htmlimg.src = this.bildseite;
+        this.istBildOben = true;
+      }
+      zeigeDeckblatt() {
+        this.htmlimg.src = this.rueckseite;
+        this.istBildOben = false;
+      }
+      umdrehen() {
+        if (this.istBildOben) {
+          this.zeigeDeckblatt();
+        }
+        else {
+          this.zeigeBild();
+        }
+      }
+      setImage(htmlimg) {
+        this.htmlimg = htmlimg;
+        this.htmlimg.addEventListener("click", () => this.umdrehen());
+        //this.htmlimg.onclick = function () { steuerung(this, htmlimg.id.replace("img", "")) };
+        this.zeigeDeckblatt();
+      }
+      clone() {
+        return new Karte(this.rueckseite, this.bildseite);
+      }
+      setDeckblatt(musterbild) {
+        this.htmlimg.src = musterbild;
+      }
+    }
+    verschiedeneBilder = 5;
+
+    karten = [];
+    for (let i = 0; i < verschiedeneBilder; i++) {
+      let karte;
+      //do {
+      let rnd = Math.floor(Math.random() * 102 + 1);
+      karte = new Karte("bilder/DeckBlatt.gif", "bilder/" + rnd + ".gif");
+      //} while (karten.indexOf(bild) > -1);
+      karten[i] = karte;
+      karten[i + verschiedeneBilder] = karten[i].clone();
+    }
+
+    let spielfeld = document.getElementById("MemoryBord");
+    function aufbauSpielfeld(karten) {
+      memory = document.getElementById("MemoryBord");
+      memory.innerHTML = "";
+      for (let index = 0; index < karten.length; index++) {
+        img = document.createElement("img");
+        img.id = "img" + index;
+        karten[index].setImage(img);
+        //img.onclick = function () { steuerung(this, index) };
+        memory.appendChild(img)
+      }
+
+    }
+    function mischen(arr) {
+      let rnd1, rnd2, xhelp;
+      const len = arr.length;
+      for (let i = 0; i < 100; i++) {
+        rnd1 = Math.floor(Math.random() * len);
+        rnd2 = Math.floor(Math.random() * len);
+        xhelp = arr[rnd1];
+        arr[rnd1] = arr[rnd2];
+        arr[rnd2] = xhelp;
+      }
+    }
+    mischen(karten);
+    aufbauSpielfeld(karten);
+    function steuerung(that, bildnr) {
+      let versuche = document.getElementById("AnzahlVersuche");
+      if (bildnr === aufgedecktesKarte1 || bildnr === aufgedecktesKarte2) return; //nochmal auf Bild geklickt
+
+      if (aufgedecktesKarte1 === -1) { // erstes Bild
+        aufgedecktesKarte1 = bildnr;
+        that.src = bilder[bildnr];
+        return;
+      }
+      if (aufgedecktesKarte2 === -1) { //zweites Bild
+        aufgedecktesKarte2 = bildnr;
+        that.src = bilder[bildnr];
+        if (entfernteBilder == verschiedenbilder - 1) {
+          //gewonnen
+          stoppTimer();
+        }
+        start3SekTimer();
+        versuche.innerText++;
+        return;
+      }
+      umdrehen();
+      aufgedecktesKarte1 = bildnr;
+      that.src = bilder[bildnr];
+    }
+    function umdrehen() {
+      if (karten[aufgedecktesKarte1].bildseite === karten[aufgedecktesKarte2].bildseite) {
+        //entferne Bilder
+        spielfeld.getElementsByTagName("img")[aufgedecktesKarte1].src = "bilder/Muster.gif";
+        spielfeld.getElementsByTagName("img")[aufgedecktesKarte2].src = "bilder/Muster.gif";
+        spielfeld.getElementsByTagName("img")[aufgedecktesKarte1].onclick = "";
+        spielfeld.getElementsByTagName("img")[aufgedecktesKarte2].onclick = "";
+        aufgedecktesKarte2 = null;
+        aufgedecktesKarte1 = null;
+        entfernteKarten++;
+      }
+      else {
+        karten[aufgedecktesKarte1].zeigeDeckblatt();
+        karten[aufgedecktesKarte2].zeigeDeckblatt();
+        aufgedecktesKarte2 = null;
+        aufgedecktesKarte1 = null;
+
+      }
+    }
+  </script>
+</body>
+
+</html>
